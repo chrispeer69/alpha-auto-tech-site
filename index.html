@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alpha Auto Tech — We Replaced All Three. Then Beat Them.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E11; --panel:#13181D; --panel2:#171D23; --line:#222A31;
+    --ink:#E8EAED; --muted:#8A97A3; --steel:#5E6B77;
+    --orange:#F25C26; --orange-d:#C8410F; --green:#3FB36A; --green-dim:rgba(63,179,106,.12);
+    --r:14px; --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  h1,h2,h3,h4,.display{font-family:'Archivo',sans-serif;font-weight:900;letter-spacing:-.02em;line-height:1.04}
+  .mono{font-family:'JetBrains Mono',monospace}
+  a{color:inherit;text-decoration:none}
+  .eyebrow{font-family:'Archivo';font-weight:800;text-transform:uppercase;letter-spacing:.22em;font-size:12px;color:var(--orange)}
+  .muted{color:var(--muted)}
+  nav{position:sticky;top:0;z-index:50;background:rgba(11,14,17,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:'Archivo';font-weight:900;font-size:18px}
+  .mark{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,var(--orange),var(--orange-d));display:grid;place-items:center;color:#fff;font-family:'Archivo';font-weight:900;font-size:17px;box-shadow:0 0 0 1px rgba(242,92,38,.3),0 6px 18px rgba(242,92,38,.25)}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{font-size:14px;font-weight:500;color:var(--muted);transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  .btn{font-family:'Archivo';font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.05em;padding:11px 20px;border-radius:9px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:9px;transition:transform .15s,box-shadow .2s,background .2s}
+  .btn-primary{background:var(--orange);color:#fff;box-shadow:0 8px 24px rgba(242,92,38,.3)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(242,92,38,.45)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--steel);background:var(--panel)}
+  @media(max-width:780px){.nav-links a:not(.btn){display:none}}
+  .hero{position:relative;padding:92px 0 56px;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(900px 420px at 80% -8%,rgba(242,92,38,.16),transparent 60%);pointer-events:none}
+  .grid-floor{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:46px 46px;opacity:.16;mask-image:linear-gradient(to bottom,#000,transparent 72%);-webkit-mask-image:linear-gradient(to bottom,#000,transparent 72%)}
+  .hero-in{position:relative;z-index:2}
+  .hero h1{font-size:clamp(38px,6.6vw,82px);text-transform:uppercase}
+  .hero h1 .stroke{color:transparent;-webkit-text-stroke:1.5px var(--steel)}
+  .hero h1 .hot{color:var(--orange)}
+  .hero .lede{font-size:clamp(17px,2.2vw,21px);color:var(--muted);max-width:660px;margin:24px 0 32px;line-height:1.5}
+  .hero .lede b{color:var(--ink);font-weight:600}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .hero-note{margin-top:20px;font-size:13px;color:var(--steel);display:flex;align-items:center;gap:8px}
+  .pulse{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(63,179,106,.5)}70%{box-shadow:0 0 0 9px rgba(63,179,106,0)}100%{box-shadow:0 0 0 0 rgba(63,179,106,0)}}
+  .board{margin-top:56px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:780px){.board{grid-template-columns:1fr}}
+  .bcell{border:1px solid var(--line);border-radius:12px;background:linear-gradient(180deg,var(--panel),var(--bg));padding:20px 22px}
+  .bcell .vs{font-family:'JetBrains Mono';font-size:11px;color:var(--steel);letter-spacing:.06em;margin-bottom:8px}
+  .bcell .vs b{color:var(--muted)}
+  .bcell .res{font-family:'Archivo';font-weight:900;font-size:20px;color:var(--green);display:flex;align-items:center;gap:9px}
+  .bcell .res .chk{width:18px;height:18px;border-radius:50%;background:var(--green-dim);border:1px solid var(--green);display:grid;place-items:center;color:var(--green);font-size:11px}
+  section{padding:84px 0;position:relative}
+  .sec-head{max-width:760px;margin-bottom:14px}
+  .sec-head h2{font-size:clamp(28px,4vw,46px);text-transform:uppercase;margin:14px 0 16px}
+  .sec-head p{color:var(--muted);font-size:17px}
+  .divider{height:1px;background:var(--line)}
+  .matchups{display:flex;flex-direction:column;gap:26px;margin-top:40px}
+  .vs-card{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--panel)}
+  .vs-top{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 28px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,rgba(242,92,38,.06),transparent)}
+  .vs-top .who{display:flex;flex-direction:column;gap:3px}
+  .vs-top .cat{font-family:'JetBrains Mono';font-size:11px;font-weight:700;color:var(--orange);letter-spacing:.08em;text-transform:uppercase}
+  .vs-top .name{font-family:'Archivo';font-weight:900;font-size:23px}
+  .vs-top .name .lose{color:var(--steel);font-size:14px;font-weight:600;display:block;margin-top:2px}
+  .vs-badge{font-family:'Archivo';font-weight:900;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--green);border:1px solid var(--green);background:var(--green-dim);padding:7px 14px;border-radius:999px;white-space:nowrap}
+  .vs-body{display:grid;grid-template-columns:1fr 1fr}
+  @media(max-width:760px){.vs-body{grid-template-columns:1fr}}
+  .col{padding:26px 28px}
+  .col.match{border-right:1px solid var(--line)}
+  @media(max-width:760px){.col.match{border-right:none;border-bottom:1px solid var(--line)}}
+  .col .col-h{font-family:'Archivo';font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px;display:flex;align-items:center;gap:9px}
+  .col.match .col-h{color:var(--muted)}
+  .col.beat .col-h{color:var(--orange)}
+  .col ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+  .col li{font-size:14px;line-height:1.5;padding-left:24px;position:relative}
+  .col.match li::before{content:"\2713";position:absolute;left:0;top:0;color:var(--muted);font-weight:700}
+  .col.beat li{color:var(--ink)}
+  .col.beat li::before{content:"\25B2";position:absolute;left:0;top:1px;color:var(--orange);font-size:11px}
+  .col.beat li b{color:var(--orange);font-weight:600}
+  .own{background:linear-gradient(135deg,#15110D,#0B0E11 60%);border:1px solid rgba(242,92,38,.28);border-radius:18px;padding:54px 44px;position:relative;overflow:hidden}
+  .own::after{content:"";position:absolute;right:-60px;top:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(242,92,38,.22),transparent 65%)}
+  .own h2{font-size:clamp(30px,4.4vw,52px);text-transform:uppercase;max-width:880px;position:relative}
+  .own h2 .hot{color:var(--orange)}
+  .own .own-sub{color:var(--muted);font-size:17px;max-width:640px;margin-top:18px;position:relative}
+  .own-points{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:38px;position:relative}
+  @media(max-width:900px){.own-points{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.own-points{grid-template-columns:1fr}}
+  .op{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:20px}
+  .op .n{font-family:'JetBrains Mono';font-weight:700;color:var(--orange);font-size:13px;margin-bottom:10px}
+  .op h4{font-weight:800;font-size:16px;margin-bottom:6px}
+  .op p{font-size:13px;color:var(--muted);line-height:1.5}
+  .ai-band{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media(max-width:860px){.ai-band{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.ai-band{grid-template-columns:1fr}}
+  .aic{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px;transition:border-color .2s,transform .2s}
+  .aic:hover{border-color:var(--orange);transform:translateY(-3px)}
+  .aic .b{font-family:'JetBrains Mono';font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--orange);border:1px solid rgba(242,92,38,.3);padding:3px 8px;border-radius:5px;display:inline-block;margin-bottom:14px}
+  .aic h4{font-size:16px;font-weight:800;margin-bottom:6px}
+  .aic p{font-size:13.5px;color:var(--muted);line-height:1.5}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  @media(max-width:760px){.stats{grid-template-columns:1fr 1fr}}
+  .stat{text-align:center;padding:26px 14px;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+  .stat .num{font-family:'Archivo';font-weight:900;font-size:clamp(30px,4vw,46px);line-height:1}
+  .stat .num .u{color:var(--orange)}
+  .stat .lbl{font-size:12.5px;color:var(--muted);margin-top:10px;text-transform:uppercase;letter-spacing:.08em}
+  .final{text-align:center;padding:96px 0}
+  .final h2{font-size:clamp(32px,5.5vw,62px);text-transform:uppercase;max-width:900px;margin:0 auto 20px}
+  .final h2 .hot{color:var(--orange)}
+  .final p{color:var(--muted);font-size:18px;max-width:560px;margin:0 auto 34px}
+  .final .hero-cta{justify-content:center}
+  .ps{margin-top:30px;font-size:14px;color:var(--steel);font-style:italic;max-width:560px;margin:30px auto 0}
+  footer{border-top:1px solid var(--line);padding:34px 0;color:var(--steel);font-size:13px}
+  .foot-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center}
+  .disclaimer{font-size:11.5px;color:#3D454D;max-width:780px;margin-top:14px;line-height:1.5}
+  /* deck slider */
+  .deck{position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+  .deck-track{display:flex;transition:transform .6s cubic-bezier(.65,.05,.36,1)}
+  .deck-slide{min-width:100%;aspect-ratio:16/9;display:block}
+  .deck-slide img{width:100%;height:100%;object-fit:cover;display:block}
+  .deck-ui{position:absolute;inset:0;pointer-events:none}
+  .deck-arrow{pointer-events:auto;position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(11,14,17,.55);backdrop-filter:blur(6px);color:#fff;font-size:20px;display:grid;place-items:center;cursor:pointer;transition:background .2s,border-color .2s;font-family:'Archivo'}
+  .deck-arrow:hover{background:var(--orange);border-color:var(--orange)}
+  .deck-arrow.prev{left:16px}.deck-arrow.next{right:16px}
+  .deck-dots{position:absolute;bottom:16px;left:0;right:0;display:flex;gap:8px;justify-content:center;pointer-events:auto}
+  .deck-dot{width:8px;height:8px;border-radius:50%;border:none;background:rgba(255,255,255,.3);cursor:pointer;transition:background .2s,width .2s;padding:0}
+  .deck-dot.on{background:var(--orange);width:22px;border-radius:4px}
+  .deck-bar{position:absolute;top:0;left:0;height:3px;background:var(--orange);width:0;transition:width .1s linear;z-index:3}
+  .deck-count{position:absolute;top:14px;right:16px;font-family:'JetBrains Mono';font-size:12px;color:rgba(255,255,255,.7);background:rgba(11,14,17,.55);padding:4px 10px;border-radius:6px;pointer-events:none}
+  @media(max-width:560px){.deck-arrow{width:38px;height:38px;font-size:16px}}
+  /* audio listen */
+  .listen{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center;border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,var(--panel),var(--bg));padding:30px 34px}
+  @media(max-width:620px){.listen{grid-template-columns:1fr;text-align:center;padding:26px}}
+  .listen-mark{width:78px;height:78px;border-radius:16px;background:linear-gradient(135deg,var(--orange),var(--orange-d));display:grid;place-items:center;box-shadow:0 10px 30px rgba(242,92,38,.35)}
+  @media(max-width:620px){.listen-mark{margin:0 auto}}
+  .listen-mark svg{width:38px;height:38px;fill:#fff}
+  .listen-body h3{font-family:'Archivo';font-weight:900;font-size:22px;text-transform:uppercase;margin-bottom:4px}
+  .listen-body p{color:var(--muted);font-size:14px;margin-bottom:16px}
+  .listen audio{width:100%;height:42px;border-radius:8px;outline:none}
+  .listen audio::-webkit-media-controls-panel{background:var(--panel2)}
+  /* video */
+  .filmwrap{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.5);position:relative}
+  .filmwrap video{width:100%;display:block;aspect-ratio:16/9;background:#000}
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.pulse{animation:none}}
+  :focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+</style>
+</head>
+<body>
+<nav>
+  <div class="wrap nav-in">
+    <div class="brand"><span class="mark">A</span> Alpha Auto Tech</div>
+    <div class="nav-links">
+      <a href="#mitchell">vs Mitchell 1</a>
+      <a href="#bolton">vs BOLT ON</a>
+      <a href="#sidekick">vs SideKick360</a>
+      <a href="#deck-sec">Watch</a>
+      <a href="#listen-sec">Listen</a>
+      <a href="#own">Own It</a>
+      <a href="#demo" class="btn btn-primary">Book a Look</a>
+    </div>
+  </div>
+</nav>
+<header class="hero">
+  <div class="grid-floor"></div>
+  <div class="wrap hero-in">
+    <div class="eyebrow reveal">The head-to-head</div>
+    <h1 class="reveal" style="margin-top:16px">
+      We replaced<br>
+      <span class="stroke">all three.</span><br>
+      <span class="hot">Then beat them.</span>
+    </h1>
+    <p class="lede reveal">
+      Mitchell 1. BOLT ON. SideKick360. Three subscriptions every shop pays for, three companies that don't talk to each other.
+      <b>We matched what each one does &mdash; feature for feature &mdash; then built past it</b>, on one platform we own outright.
+    </p>
+    <div class="hero-cta reveal">
+      <a href="#mitchell" class="btn btn-primary">See the matchups &rarr;</a>
+      <a href="#demo" class="btn btn-ghost">Book a Look</a>
+    </div>
+    <div class="hero-note reveal"><span class="pulse"></span> Live platform across 9 locations &mdash; match it against your own setup.</div>
+    <div class="board reveal">
+      <div class="bcell"><div class="vs">ALPHA <b>vs</b> MITCHELL 1</div><div class="res"><span class="chk">&check;</span> Matched &amp; beat</div></div>
+      <div class="bcell"><div class="vs">ALPHA <b>vs</b> BOLT ON</div><div class="res"><span class="chk">&check;</span> Matched &amp; beat</div></div>
+      <div class="bcell"><div class="vs">ALPHA <b>vs</b> SIDEKICK360</div><div class="res"><span class="chk">&check;</span> Matched &amp; beat</div></div>
+    </div>
+  </div>
+</header>
+<section style="padding-top:40px">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">The matchups</div>
+      <h2>Same job. Done better. One platform.</h2>
+      <p>For each product you pay for today: what we match, and what we do that it can't.</p>
+    </div>
+    <div class="matchups">
+      <div class="vs-card reveal" id="mitchell">
+        <div class="vs-top">
+          <div class="who">
+            <span class="cat">Shop management + repair information</span>
+            <span class="name">Alpha Auto Tech <span class="lose">replaces Mitchell 1 &mdash; Manager SE + ProDemand</span></span>
+          </div>
+          <span class="vs-badge">Matched &amp; Beat</span>
+        </div>
+        <div class="vs-body">
+          <div class="col match">
+            <div class="col-h">What we match</div>
+            <ul>
+              <li>Live workshop board &mdash; every RO by stage, technician &amp; promised time</li>
+              <li>Estimate &rarr; repair order &rarr; invoice as one document; job containers &amp; revisions</li>
+              <li>Estimate Guide: labor times + OEM parts + diagrams, dropped onto the ticket</li>
+              <li>Wiring diagrams, trouble codes, TSBs, fluids &amp; specs, verified real fixes</li>
+              <li>Canned jobs, markup matrices, tech clocked-vs-billed time</li>
+              <li>A/R, statements, aging, cores, warranty &amp; comeback tracking</li>
+            </ul>
+          </div>
+          <div class="col beat">
+            <div class="col-h">What we do better</div>
+            <ul>
+              <li><b>Cloud-native</b> &mdash; runs anywhere, no back-office PC to babysit, no nightly backup ritual</li>
+              <li><b>One product, not two</b> &mdash; shop management and repair data in the same system, not separate subscriptions</li>
+              <li><b>AI Estimate Writer</b> &mdash; a complaint or a code becomes a drafted, real-priced estimate Mitchell can't generate</li>
+              <li><b>AI Diagnostic Assistant</b> ranks likely causes, citing the real fixes and procedures</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="vs-card reveal" id="bolton">
+        <div class="vs-top">
+          <div class="who">
+            <span class="cat">Customer engagement</span>
+            <span class="name">Alpha Auto Tech <span class="lose">replaces BOLT ON Technology</span></span>
+          </div>
+          <span class="vs-badge">Matched &amp; Beat</span>
+        </div>
+        <div class="vs-body">
+          <div class="col match">
+            <div class="col-h">What we match</div>
+            <ul>
+              <li>Digital vehicle inspections &mdash; photos, video, annotation, red/yellow/green</li>
+              <li>Customer-facing report with per-line approve/decline and e-signature</li>
+              <li>Two-way texting &amp; email; text-to-pay and financing</li>
+              <li>Review manager; reminders; customer portal &amp; online booking</li>
+              <li>Marketing &mdash; text, email, postcards &amp; intelligent coupons</li>
+              <li>Call tracking with caller-ID screen-pop (name, vehicle, history)</li>
+            </ul>
+          </div>
+          <div class="col beat">
+            <div class="col-h">What we do better</div>
+            <ul>
+              <li><b>Native, not bolted on</b> &mdash; inspection finding &rarr; priced job &rarr; invoice &rarr; analytics with zero re-entry</li>
+              <li><b>24/7 AI virtual advisor</b> answers calls and texts and books appointments in plain language</li>
+              <li><b>AI Inspection Narrator</b> writes the customer-friendly version of the findings for you</li>
+              <li>One login with the rest of the shop &mdash; not a separate add-on layer to maintain</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="vs-card reveal" id="sidekick">
+        <div class="vs-top">
+          <div class="who">
+            <span class="cat">Multi-location intelligence</span>
+            <span class="name">Alpha Auto Tech <span class="lose">replaces SideKick360</span></span>
+          </div>
+          <span class="vs-badge">Matched &amp; Beat</span>
+        </div>
+        <div class="vs-body">
+          <div class="col match">
+            <div class="col-h">What we match</div>
+            <ul>
+              <li>Nightly operations report &amp; 6am package &mdash; no login, by text/email</li>
+              <li>Per-advisor scorecards across 30+ service categories</li>
+              <li>Invoice-detail export, line-item level, analytics-ready</li>
+              <li>Customer health &mdash; active / high-risk / lapsed / lost</li>
+              <li>Maintenance Hunter &mdash; due/overdue services, in dollars, at write-up</li>
+              <li>Enterprise rollup &mdash; rank stores, advisors &amp; techs; drill anywhere</li>
+            </ul>
+          </div>
+          <div class="col beat">
+            <div class="col-h">What we do better</div>
+            <ul>
+              <li><b>It acts, not just reports</b> &mdash; one click on a missed service drafts the quote + the customer text + booking link</li>
+              <li><b>No export/sync layer</b> &mdash; the data already lives in the same system the work happens in</li>
+              <li><b>AI Copilot</b> &mdash; ask the business a question in plain English, get cited numbers and charts</li>
+              <li>Real-time, not a nightly batch you wait on</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="wrap"><div class="divider"></div></div>
+<section id="deck-sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Watch</div>
+      <h2>Stop renting. Start owning.</h2>
+      <p>Two minutes on why shops are walking away from three rented systems &mdash; and what one platform you own changes.</p>
+    </div>
+    <div class="filmwrap reveal" style="margin-bottom:54px">
+      <video controls preload="metadata" playsinline poster="slides/slide-01.jpg">
+        <source src="alpha-auto-tech-film.mp4" type="video/mp4">
+        Your browser doesn&rsquo;t support video playback.
+      </video>
+    </div>
+    <div class="sec-head reveal" style="margin-bottom:14px">
+      <div class="eyebrow">The walkthrough</div>
+      <h2>The blueprint, in twelve slides.</h2>
+      <p>The full story &mdash; three legacy systems, one native platform, built by operators. Auto-advancing; tap to take control.</p>
+    </div>
+    <div class="deck reveal" id="deck" aria-roledescription="carousel" aria-label="Alpha Auto Tech deck">
+      <div class="deck-bar" id="deckBar"></div>
+      <div class="deck-track" id="deckTrack">
+        <div class="deck-slide"><img src="slides/slide-01.jpg" alt="Slide 1" loading="eager"></div>
+        <div class="deck-slide"><img src="slides/slide-02.jpg" alt="Slide 2" loading="lazy"></div>
+        <div class="deck-slide"><img src="slides/slide-03.jpg" alt="Slide 3" loading="lazy"></div>
+        <div class="deck-slide"><img src="slides/slide-04.jpg" alt="Slide 4" loading="lazy"></div>
+        <div class="deck-slide"><img src="slides/slide-05.jpg" alt="Slide 5" loading="lazy"></div>
+        <div class="deck-slide"><img src="slides/slide-06.jpg" alt="Slide 6" loading="lazy"></div>
+        <div class="deck-slide"><img src="slides/slide-07.jpg" alt="Slide 7" loading="lazy"></div>
+        <div class="deck-slide"><img src="slides/slide-08.jpg" alt="Slide 8" loading="lazy"></div>
+        <div class="deck-slide"><img src="slides/slide-09.jpg" alt="Slide 9" loading="lazy"></div>
+        <div class="deck-slide"><img src="slides/slide-10.jpg" alt="Slide 10" loading="lazy"></div>
+        <div class="deck-slide"><img src="slides/slide-11.jpg" alt="Slide 11" loading="lazy"></div>
+        <div class="deck-slide"><img src="slides/slide-12.jpg" alt="Slide 12" loading="lazy"></div>
+      </div>
+      <div class="deck-count" id="deckCount">01 / 12</div>
+      <div class="deck-ui">
+        <button class="deck-arrow prev" id="deckPrev" aria-label="Previous slide">&lsaquo;</button>
+        <button class="deck-arrow next" id="deckNext" aria-label="Next slide">&rsaquo;</button>
+        <div class="deck-dots" id="deckDots"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="wrap"><div class="divider"></div></div>
+<section id="listen-sec" style="padding-top:70px;padding-bottom:0">
+  <div class="wrap">
+    <div class="listen reveal">
+      <div class="listen-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <div class="listen-body">
+        <div class="eyebrow" style="margin-bottom:10px">The 5-minute rundown</div>
+        <h3>Listen: why shops are ditching legacy software</h3>
+        <p>A short audio deep-dive on the three systems, what replaces them, and the case for one native, owned platform.</p>
+        <audio controls preload="none" src="alpha-auto-tech-overview.m4a">Your browser doesn&rsquo;t support audio playback.</audio>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="wrap"><div class="divider"></div></div>
+<section id="own">
+  <div class="wrap">
+    <div class="own reveal">
+      <div class="eyebrow">The part none of them can match</div>
+      <h2 style="margin-top:14px">It's all native &mdash; <span class="hot">and it's ours.</span></h2>
+      <p class="own-sub">Three vendors rent you three systems that don't connect. We built one, we own the code, and the same platform that runs our shops is built to run yours.</p>
+      <div class="own-points">
+        <div class="op"><div class="n">01</div><h4>One system</h4><p>No sync, no triple entry. A finding becomes a job, an invoice, and a number &mdash; untouched by hand.</p></div>
+        <div class="op"><div class="n">02</div><h4>One bill</h4><p>The ~$144k/yr split across three vendors collapses into one platform you own, not rent.</p></div>
+        <div class="op"><div class="n">03</div><h4>Our roadmap</h4><p>Every gap you find is a feature we can ship &mdash; not a ticket to a vendor who never builds it.</p></div>
+        <div class="op"><div class="n">04</div><h4>An asset</h4><p>Multi-tenant by design &mdash; the platform that runs our shops can be sold to every shop like ours.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section style="padding-top:8px">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">The unfair advantage</div>
+      <h2>The AI layer none of the three have.</h2>
+      <p>Every output is drafted for a human to approve &mdash; never auto-published, never an invented price.</p>
+    </div>
+    <div class="ai-band">
+      <div class="aic reveal"><div class="b">AI</div><h4>Estimate Writer</h4><p>A complaint or trouble code becomes a drafted, real-priced estimate from the repair-data engine.</p></div>
+      <div class="aic reveal"><div class="b">AI</div><h4>Diagnostic Assistant</h4><p>Ranks the likely causes of a symptom or code, citing verified fixes and procedures.</p></div>
+      <div class="aic reveal"><div class="b">AI</div><h4>Virtual Advisor</h4><p>Answers calls and texts 24/7 and books appointments in natural language.</p></div>
+      <div class="aic reveal"><div class="b">AI</div><h4>Shop Copilot</h4><p>Ask the business anything in plain English &mdash; get cited numbers and charts back.</p></div>
+    </div>
+  </div>
+</section>
+<section style="padding-top:24px">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat reveal"><div class="num">3<span class="u">&rarr;</span>1</div><div class="lbl">Three systems, one platform</div></div>
+      <div class="stat reveal"><div class="num">~$144<span class="u">k</span></div><div class="lbl">Per year, across three vendors</div></div>
+      <div class="stat reveal"><div class="num">250<span class="u">+</span></div><div class="lbl">Automated tests passing</div></div>
+      <div class="stat reveal"><div class="num">9</div><div class="lbl">Locations running live</div></div>
+    </div>
+  </div>
+</section>
+<section id="demo" class="final">
+  <div class="wrap">
+    <div class="eyebrow reveal">Early access</div>
+    <h2 class="reveal" style="margin-top:14px">Bring your last <span class="hot">three invoices.</span><br>Watch them become one.</h2>
+    <p class="reveal">We're inviting a small group of owners to review the live platform, become early testers, and shape what gets built next.</p>
+    <div class="hero-cta reveal">
+      <a href="mailto:chris@bluecollarai.online?subject=Alpha%20Auto%20Tech%20Book%20a%20Look" class="btn btn-primary">Book a Look &rarr;</a>
+      <a href="mailto:chris@bluecollarai.online?subject=Alpha%20Auto%20Tech%20Beta%20and%20Investment" class="btn btn-ghost">Beta &amp; investor inquiries</a>
+    </div>
+    <p class="ps reveal">"If you're paying three vendors to do what one system should &mdash; let's talk."</p>
+  </div>
+</section>
+<footer>
+  <div class="wrap foot-in">
+    <div class="brand" style="font-size:15px"><span class="mark" style="width:24px;height:24px;font-size:13px">A</span> Alpha Auto Tech</div>
+    <div>Blue Collar AI &middot; Alpha Automotive LLC &middot; Confidential</div>
+  </div>
+  <div class="wrap">
+    <p class="disclaimer">Demonstration platform. Certain data sources (repair information, parts, vehicle history, payments, and messaging) operate on integration-ready connections and connect to licensed/live providers at launch. Product names &mdash; Mitchell 1, ProDemand, BOLT ON Technology, SideKick360 &mdash; are trademarks of their respective owners, referenced for comparison only.</p>
+  </div>
+</footer>
+<script>
+  (function(){
+    const track=document.getElementById('deckTrack');
+    const slides=track?track.children.length:0;
+    if(!track||!slides)return;
+    const dotsWrap=document.getElementById('deckDots');
+    const countEl=document.getElementById('deckCount');
+    const bar=document.getElementById('deckBar');
+    const DURATION=5200; let idx=0,timer=null,raf=null,start=0,paused=false;
+    for(let i=0;i<slides;i++){const b=document.createElement('button');b.className='deck-dot'+(i===0?' on':'');b.setAttribute('aria-label','Go to slide '+(i+1));b.addEventListener('click',()=>go(i,true));dotsWrap.appendChild(b);}
+    const dots=dotsWrap.children;
+    const pad=n=>String(n+1).padStart(2,'0');
+    function render(){track.style.transform='translateX(-'+(idx*100)+'%)';for(let i=0;i<dots.length;i++)dots[i].classList.toggle('on',i===idx);countEl.textContent=pad(idx)+' / '+slides;}
+    function go(n,user){idx=(n+slides)%slides;render();if(user)restart();}
+    function next(){go(idx+1)}
+    function tick(t){if(paused)return;if(!start)start=t;const e=t-start;bar.style.width=Math.min(100,(e/DURATION)*100)+'%';if(e>=DURATION){start=0;bar.style.width='0';next();}raf=requestAnimationFrame(tick);}
+    function restart(){start=0;bar.style.width='0';}
+    function play(){cancelAnimationFrame(raf);start=0;raf=requestAnimationFrame(tick);}
+    document.getElementById('deckNext').addEventListener('click',()=>go(idx+1,true));
+    document.getElementById('deckPrev').addEventListener('click',()=>go(idx-1,true));
+    const deck=document.getElementById('deck');
+    deck.addEventListener('mouseenter',()=>{paused=true});
+    deck.addEventListener('mouseleave',()=>{paused=false;restart()});
+    // swipe
+    let sx=0;deck.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+    deck.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)go(idx+(dx<0?1:-1),true)},{passive:true});
+    // keyboard
+    deck.setAttribute('tabindex','0');
+    deck.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(idx+1,true);if(e.key==='ArrowLeft')go(idx-1,true);});
+    const prefersReduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    render();
+    if(!prefersReduce){const io2=new IntersectionObserver((es)=>{es.forEach(e=>{paused=!e.isIntersecting;if(e.isIntersecting&&!raf)play();})},{threshold:.3});io2.observe(deck);}
+    else{bar.style.display='none';}
+  })();
+</script>
+<script>
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i,5)*55)+'ms';io.observe(el)});
+</script>
+</body>
+</html>
